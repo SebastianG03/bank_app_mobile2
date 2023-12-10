@@ -1,5 +1,6 @@
 import 'package:bank_mobile/infrastructure/models/transfer_model.dart';
 import 'package:bank_mobile/presentation/providers/list_transfer_provider.dart';
+import 'package:bank_mobile/presentation/widgets/custom/transfer_details_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,18 +54,20 @@ class ListTransferBody extends StatelessWidget {
     final List<TransferModel> listTransfer =
         listTransferProvider.transferencias;
 
-    return ListView.builder(
+    return ListView.separated(
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
       itemCount: listTransfer.length,
-      itemBuilder: (context, index) {
-        final transferencia = listTransfer[index];
-        return ListTile(
-          title: Text('Transferencia ${transferencia.idTransfer}'),
-          subtitle: Text('Monto: ${transferencia.amount.toString()}'),
-          // ... otros detalles de la transferencia
-        );
-      },
+      itemBuilder: (context, i) => ListTile(
+        title: Text('Transferencia ${listTransfer[i].idTransfer}'),
+        subtitle: Text('Monto: ${listTransfer[i].amount.toString()}'),
+        trailing: const Icon(Icons.arrow_forward_ios_outlined),
+        onTap: () => TransferDetailsPopUp.transferDetailsPopUp(
+            context: context, transferModel: listTransfer[i]),
+      ),
+      separatorBuilder: (_, __) => const Divider(
+        height: 10,
+      ),
     );
   }
 }

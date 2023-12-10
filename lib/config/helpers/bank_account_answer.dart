@@ -15,6 +15,15 @@ class BankAccountAnswer {
     return accountModel;
   }
 
+  Future<BankAccountModel> getAccountByAccountId(int id) async {
+    final String apiUrl = '$url/api/BankAccount/$id';
+    final Response response = await _dio.get(apiUrl);
+    final BankAccountModel accountModel =
+        BankAccountModel.fromJson(response.data);
+
+    return accountModel;
+  }
+
   Future<BankAccountModel> putTransferAccount(
       int idSender, int idReceive, double amount) async {
     final String apiUrl = '$url/api/BankAccount/$idSender/$idReceive/$amount/';

@@ -1,7 +1,7 @@
 import 'package:bank_mobile/config/theme/theme.dart';
 import 'package:bank_mobile/presentation/providers/login_provider.dart';
 import 'package:bank_mobile/presentation/screens/screens.dart';
-import 'package:bank_mobile/presentation/shared/pop_up/pop_up_general.dart';
+import 'package:bank_mobile/presentation/widgets/shared/pop_up/pop_up_general.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

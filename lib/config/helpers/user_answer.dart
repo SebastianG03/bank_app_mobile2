@@ -2,7 +2,7 @@
 
 import 'package:bank_mobile/config/helpers/bank_account_answer.dart';
 import 'package:bank_mobile/infrastructure/models/user_model.dart';
-import 'package:bank_mobile/presentation/shared/pop_up/pop_up_general.dart';
+import 'package:bank_mobile/presentation/widgets/shared/pop_up/pop_up_general.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 
@@ -25,6 +25,14 @@ class UserAnswer {
       PopUpGeneral.showMessage(context, 'Error al obtener el usuario');
       return null;
     }
+  }
+
+  Future<UserModel> getUserById(int id) async {
+    final String apiUrl = '$url/api/User/$id';
+    final Response response = await _dio.get(apiUrl);
+    final UserModel user = UserModel.fromJson(response.data);
+
+    return user;
   }
 
   Future<dynamic> createUser(String name, String mail, String password,

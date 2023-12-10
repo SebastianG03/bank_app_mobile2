@@ -1,5 +1,5 @@
 import 'package:bank_mobile/presentation/providers/transfer_provider.dart';
-import 'package:bank_mobile/presentation/shared/pop_up/pop_up_general.dart';
+import 'package:bank_mobile/presentation/widgets/shared/pop_up/pop_up_general.dart';
 import 'package:bank_mobile/presentation/widgets/inputs/inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
