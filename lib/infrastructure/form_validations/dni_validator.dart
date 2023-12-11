@@ -11,12 +11,15 @@ class DniValidator {
 
     if (error != null) {
       if (error == DniError.empty) _errorMessage = 'El campo es requerido';
-      if (error == DniError.invalid)
+      if (error == DniError.invalid) {
         _errorMessage = 'La cédula no es válida, debe tener solo números';
-      if (error == DniError.length)
+      }
+      if (error == DniError.length) {
         _errorMessage = 'La cédula debe tener 10 números';
-    } else
+      }
+    } else {
       _errorMessage = null;
+    }
   }
 
   DniError? _validator(String value) {

@@ -1,22 +1,32 @@
-import 'package:bank_mobile/config/router/app_router.dart';
 import 'package:bank_mobile/config/theme/theme.dart';
+import 'package:bank_mobile/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtén el userId almacenado en SharedPreferences
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String userId = prefs.getString('userId') ?? "";
+
+  runApp(MyApp(userId: userId));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String userId;
 
-  // This widget is the root of your application.
+  const MyApp({Key? key, required this.userId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tu Banco Online',
       theme: CustomTheme.lightTheme,
+      home: userId.isNotEmpty
+          ? BankAccountScreen(user: int.parse(userId))
+          : const LoginScreen(),
     );
   }
 }

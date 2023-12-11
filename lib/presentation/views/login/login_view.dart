@@ -5,11 +5,12 @@ import 'package:bank_mobile/presentation/widgets/shared/pop_up/pop_up_general.da
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/inputs/inputs.dart';
 
 class LoginBody extends StatefulWidget {
-  const LoginBody({super.key});
+  const LoginBody({Key? key}) : super(key: key);
 
   @override
   State<LoginBody> createState() => _LoginBodyState();
@@ -18,6 +19,13 @@ class LoginBody extends StatefulWidget {
 class _LoginBodyState extends State<LoginBody> {
   bool _obscureTextPassword = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int storedUserId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserId(); 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +94,9 @@ class _LoginBodyState extends State<LoginBody> {
                         if (_formKey.currentState!.validate()) {
                           final username = await loginProvider.getUser(
                               context, email.trim(), password.trim());
-
+                          storedUserId = username;
+                          saveUserId(storedUserId
+                              .toString()); // Guarda la ID como String
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) =>
@@ -114,5 +124,20 @@ class _LoginBodyState extends State<LoginBody> {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
     });
+  }
+
+  Future<void> saveUserId(String userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userId', userId);
+  }
+
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      storedUserId = prefs.getInt('userId') ?? 0;
+    });
+    if(storedUserId != 0) {
+      
+    }
   }
 }

@@ -11,12 +11,15 @@ class PhoneValidator {
 
     if (error != null) {
       if (error == PhoneError.empty) _errorMessage = 'El campo es requerido';
-      if (error == PhoneError.invalid)
+      if (error == PhoneError.invalid) {
         _errorMessage = 'Formato inválido. Solo ingrese números';
-      if (error == PhoneError.length)
+      }
+      if (error == PhoneError.length) {
         _errorMessage = 'El número debe estar conformado de 9 digitos';
-    } else
+      }
+    } else {
       _errorMessage = null;
+    }
   }
 
   PhoneError? _validator(String value) {

@@ -107,9 +107,10 @@ class _TransferBodyState extends State<TransferBody> {
                   amount: amount,
                 );
                 Navigator.of(context).pop();
-              } else
+              } else {
                 PopUpGeneral.showMessage(context,
                     'Datos inválidos. No se pudo realizar la transferencias');
+              }
             },
             icon: const Icon(Icons.save),
             label: const Text('Crear Transferencia'),

@@ -12,10 +12,12 @@ class PasswordValidator {
 
     if (error != null) {
       if (error == PasswordError.empty) _errorMessage = 'El campo es requerido';
-      if (error == PasswordError.length)
+      if (error == PasswordError.length) {
         _errorMessage = 'La contraseña debe tener entre 8 y 20 caracteres';
-    } else
+      }
+    } else {
       _errorMessage = null;
+    }
   }
 
   PasswordError? _validator(String value) {

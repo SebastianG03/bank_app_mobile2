@@ -11,11 +11,15 @@ class NameValidator {
 
     if (error != null) {
       if (error == NameError.empty) _errorMessage = 'El campo es requerido';
-      if (error == NameError.invalid)
+      if (error == NameError.invalid) {
         _errorMessage = 'El nombre es inválido, debe tener letras y/o números';
-      if (error == NameError.length)
+      }
+      if (error == NameError.length) {
         _errorMessage = 'El nombre debe tener entre 6 y 20 caracteres';
-    } else _errorMessage = null;
+      }
+    } else {
+      _errorMessage = null;
+    }
   }
 
   NameError? _validator(String value) {

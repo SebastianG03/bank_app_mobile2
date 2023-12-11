@@ -11,7 +11,9 @@ class AmountValidator {
     if (error != null) {
       if (error == AmountError.empty) _errorMessage = 'El campo es requerido';
       if (error == AmountError.format)_errorMessage = 'El campo solo admite números (0.00).';
-    } else _errorMessage = null;
+    } else {
+      _errorMessage = null;
+    }
   }
 
   AmountError? _validator(String value) {

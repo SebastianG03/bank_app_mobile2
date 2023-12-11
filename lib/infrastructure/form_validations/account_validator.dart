@@ -10,10 +10,12 @@ class AccountValidator {
 
     if (error != null) {
       if (error == AccountError.empty) _errorMessage = 'El campo es requerido';
-      if (error == AccountError.format)
+      if (error == AccountError.format) {
         _errorMessage = 'El campo solo admite números';
-    } else
+      }
+    } else {
       _errorMessage = null;
+    }
   }
 
   AccountError? _validator(String value) {

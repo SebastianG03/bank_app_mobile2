@@ -13,7 +13,9 @@ class EmailValidator {
     if (error != null) {
       if (error == EmailError.empty) _errorMessage = 'El campo es requerido';
       if (error == EmailError.invalid) _errorMessage = 'El correo no es válido';
-    } else _errorMessage = null;
+    } else {
+      _errorMessage = null;
+    }
   }
 
   EmailError? _validator(String value) {
