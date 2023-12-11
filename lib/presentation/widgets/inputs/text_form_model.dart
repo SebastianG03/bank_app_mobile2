@@ -5,13 +5,15 @@ class TextFormsModel extends StatelessWidget {
   final InputDecoration decoration;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   const TextFormsModel(
       {super.key,
       required this.textInputType,
       required this.decoration,
       required this.onChanged,
-      this.validator});
+      this.validator,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class TextFormsModel extends StatelessWidget {
           top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
       child: TextFormField(
         keyboardType: textInputType,
+        controller: controller,
         onChanged: onChanged,
         validator: validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,

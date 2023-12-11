@@ -1,9 +1,12 @@
 import 'package:bank_mobile/infrastructure/models/transfer_model.dart';
+import 'package:bank_mobile/infrastructure/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class TransferDetailsPopUp {
-  static void transferDetailsPopUp(
-      {required BuildContext context, required TransferModel transferModel}) {
+  static void transferDetailsPopUp({
+    required BuildContext context,
+    required TransferModel transferModel,
+  }) {
     showDialog(
       context: context,
       barrierDismissible: true,

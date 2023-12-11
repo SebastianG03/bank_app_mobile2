@@ -4,7 +4,7 @@ class PhoneValidator {
   String? _errorMessage = '';
   bool _isValid = false;
 
-  static final RegExp phoneRegex = RegExp(r'^\d$');
+  static final RegExp phoneRegex = RegExp(r'^\d+$');
 
   void validate({String value = ''}) {
     PhoneError? error = _validator(value);

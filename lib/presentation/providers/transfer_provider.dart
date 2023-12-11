@@ -9,6 +9,7 @@ class TransferProvider extends ChangeNotifier {
 
   //Todo: Transfer
   Future<dynamic> createTransfer({
+    required BuildContext context,
     required int idAccountSender,
     required int idAccountReceiver,
     required double amount,
@@ -18,8 +19,8 @@ class TransferProvider extends ChangeNotifier {
       idAccountReceiver: idAccountReceiver,
       amount: amount,
     );
-    final response2 = await BankAccountAnswer()
-        .putTransferAccount(idAccountSender, idAccountReceiver, amount);
+    final response2 = await BankAccountAnswer().putTransferAccount(
+        context, idAccountSender, idAccountReceiver, amount);
     return response2;
   }
 }

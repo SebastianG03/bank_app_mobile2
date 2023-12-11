@@ -59,12 +59,11 @@ class ListTransferBody extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemCount: listTransfer.length,
       itemBuilder: (context, i) => ListTile(
-        title: Text('Transferencia ${listTransfer[i].idTransfer}'),
-        subtitle: Text('Monto: ${listTransfer[i].amount.toString()}'),
-        trailing: const Icon(Icons.arrow_forward_ios_outlined),
-        onTap: () => TransferDetailsPopUp.transferDetailsPopUp(
-            context: context, transferModel: listTransfer[i]),
-      ),
+          title: Text('Transferencia ${listTransfer[i].idTransfer}'),
+          subtitle: Text('Monto: ${listTransfer[i].amount.toString()}'),
+          trailing: const Icon(Icons.arrow_forward_ios_outlined),
+          onTap: () => TransferDetailsPopUp.transferDetailsPopUp(
+              context: context, transferModel: listTransfer[i])),
       separatorBuilder: (_, __) => const Divider(
         height: 10,
       ),

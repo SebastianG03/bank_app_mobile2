@@ -42,12 +42,13 @@ class UserAnswer {
     final Response response = await _dio.post(
       apiUrl,
       data: {
+        "idUser": 0,
         "name": name,
         "email": mail,
         "password": password,
-        "phone": phone,
+        "phone": "0$phone",
         "role": "client",
-        "dni": dni,
+        "dni": dni
       },
     );
     await BankAccountAnswer().createBankAccount(response.data);

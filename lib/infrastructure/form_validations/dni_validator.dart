@@ -4,7 +4,7 @@ class DniValidator {
   String? _errorMessage = '';
   bool _isValid = false;
 
-  static final RegExp dniRegex = RegExp(r'^\d$');
+  static final RegExp dniRegex = RegExp(r'^\d+$');
 
   void validate({String value = ''}) {
     DniError? error = _validator(value);
@@ -15,7 +15,8 @@ class DniValidator {
         _errorMessage = 'La cédula no es válida, debe tener solo números';
       if (error == DniError.length)
         _errorMessage = 'La cédula debe tener 10 números';
-    }  else _errorMessage = null;
+    } else
+      _errorMessage = null;
   }
 
   DniError? _validator(String value) {

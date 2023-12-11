@@ -23,6 +23,11 @@ class _RegisterViewState extends State<RegisterView> {
   String phone = '';
   String role = 'client';
   String dni = '';
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController dniController = TextEditingController();
 
   bool _obscureTextPassword = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,7 +41,7 @@ class _RegisterViewState extends State<RegisterView> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              ..._getWidgets(context),
+              ..._getWidgets(context, registrationProvider),
               const SizedBox(
                 height: 20,
               ),
@@ -46,18 +51,22 @@ class _RegisterViewState extends State<RegisterView> {
                 splashColor: CustomTheme.buttonPrimaryGradient,
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    await registrationProvider.createUser(
-                      name: name,
-                      mail: email,
-                      dni: dni,
-                      phone: phone,
-                      password: password,
-                    );
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    );
+                    try {
+                      await registrationProvider.createUser(
+                        name: nameController.text.trim(),
+                        mail: mailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        phone: phoneController.text.trim(),
+                        dni: dniController.text.trim(),
+                      );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    } catch (e) {
+                      print(e.toString());
+                    }
                   } else {
                     PopUpGeneral.showMessage(context,
                         "Datos inválidos, no se pudo crear su cuenta.");
@@ -78,9 +87,11 @@ class _RegisterViewState extends State<RegisterView> {
     });
   }
 
-  List<Widget> _getWidgets(BuildContext context) {
+  List<Widget> _getWidgets(
+      BuildContext context, RegistrationProvider registrationProvider) {
     return <Widget>[
       TextFormsModel(
+        controller: nameController,
         textInputType: TextInputType.text,
         decoration: const InputDecoration(
           labelText: 'Nombre',
@@ -89,9 +100,14 @@ class _RegisterViewState extends State<RegisterView> {
         onChanged: (String value) {
           name = value;
         },
+        validator: (String? value) {
+          registrationProvider.nameValidator.validate(value: value!);
+          return registrationProvider.nameValidator.erroMessage;
+        },
       ),
       _divider(context),
       TextFormsModel(
+        controller: mailController,
         textInputType: TextInputType.emailAddress,
         decoration: const InputDecoration(
           labelText: 'Email',
@@ -100,9 +116,14 @@ class _RegisterViewState extends State<RegisterView> {
         onChanged: (String value) {
           email = value;
         },
+        validator: (String? value) {
+          registrationProvider.emailValidator.validate(value: value!);
+          return registrationProvider.emailValidator.erroMessage;
+        },
       ),
       _divider(context),
       TextFormsModel(
+        controller: phoneController,
         textInputType: TextInputType.phone,
         decoration: const InputDecoration(
           labelText: 'Teléfono',
@@ -111,9 +132,14 @@ class _RegisterViewState extends State<RegisterView> {
         onChanged: (String value) {
           phone = value;
         },
+        validator: (String? value) {
+          registrationProvider.phoneValidator.validate(value: value!);
+          return registrationProvider.phoneValidator.erroMessage;
+        },
       ),
       _divider(context),
       TextFormsModel(
+        controller: dniController,
         textInputType: TextInputType.number,
         decoration: const InputDecoration(
           labelText: 'Cédula',
@@ -122,13 +148,22 @@ class _RegisterViewState extends State<RegisterView> {
         onChanged: (String value) {
           dni = value;
         },
+        validator: (String? value) {
+          registrationProvider.dniValidator.validate(value: value!);
+          return registrationProvider.dniValidator.erroMessage;
+        },
       ),
       _divider(context),
       PasswordFormsModel(
+          controller: passwordController,
           textInputType: TextInputType.visiblePassword,
           label: 'Contraseña',
           onChanged: (String value) {
             password = value;
+          },
+          validator: (String? value) {
+            registrationProvider.passwordValidator.validate(value: value!);
+            return registrationProvider.passwordValidator.erroMessage;
           },
           tap: _toggleSignup,
           obscureText: _obscureTextPassword),
