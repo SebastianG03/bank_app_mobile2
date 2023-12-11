@@ -85,7 +85,7 @@ class _LoginBodyState extends State<LoginBody> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           final username = await loginProvider.getUser(
-                              context, email, password);
+                              context, email.trim(), password.trim());
 
                           Navigator.of(context).push(
                             MaterialPageRoute(

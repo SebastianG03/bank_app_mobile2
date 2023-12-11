@@ -7,20 +7,23 @@ class TransferProvider extends ChangeNotifier {
   final AccountValidator accountValidator = AccountValidator();
   final AmountValidator amountValidator = AmountValidator();
 
-  //Todo: Transfer
   Future<dynamic> createTransfer({
     required BuildContext context,
     required int idAccountSender,
     required int idAccountReceiver,
     required double amount,
   }) async {
-    final response = await TransferAnswer().createTransfer(
-      idAccountSender: idAccountSender,
-      idAccountReceiver: idAccountReceiver,
-      amount: amount,
-    );
-    final response2 = await BankAccountAnswer().putTransferAccount(
+    final response = await BankAccountAnswer().putTransferAccount(
         context, idAccountSender, idAccountReceiver, amount);
-    return response2;
+
+    if (response != null) {
+      await TransferAnswer().createTransfer(
+        idAccountSender: idAccountSender,
+        idAccountReceiver: idAccountReceiver,
+        amount: amount,
+      );
+    }
+
+    return response;
   }
 }

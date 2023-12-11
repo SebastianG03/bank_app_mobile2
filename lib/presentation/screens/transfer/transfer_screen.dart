@@ -76,7 +76,7 @@ class _TransferBodyState extends State<TransferBody> {
                 labelText: 'Cuenta de destino',
                 icon: Icon(FontAwesomeIcons.person)),
             onChanged: (String value) =>
-                idAccountReceiver = int.tryParse(value) ?? 0,
+                idAccountReceiver = int.tryParse(value.trim()) ?? 0,
             validator: (String? value) {
               transferProvider.accountValidator.validate(value: value!);
               return transferProvider.accountValidator.erroMessage;
@@ -89,7 +89,8 @@ class _TransferBodyState extends State<TransferBody> {
               labelText: 'Monto',
               icon: Icon(FontAwesomeIcons.dollarSign),
             ),
-            onChanged: (String value) => amount = double.tryParse(value) ?? 0,
+            onChanged: (String value) =>
+                amount = double.tryParse(value.trim()) ?? 0,
             validator: (String? value) {
               transferProvider.amountValidator.validate(value: value!);
               return transferProvider.amountValidator.erroMessage;
